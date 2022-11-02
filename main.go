@@ -4,18 +4,28 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 )
 
+var Username string
 var balance float32 = 10000
 var anotherTransaction int
 
 func main() {
-	fmt.Printf("\nWelcome to GTBank ATM\n")
+	getUsername()
+	fmt.Printf("\n%v welcome to GTBank ATM\n", strings.Title(Username))
 	transaction()
 }
 
 func exit() {
-	fmt.Println("\nThank you for banking with us!\nHave a nice day")
+	fmt.Printf("\n%v thank you for banking with us!\nHave a nice day", strings.Title(Username))
+}
+func getUsername() {
+	fmt.Printf("\nPlease enter your name: ")
+	_, err := fmt.Scan(&Username)
+	if err != nil {
+		return
+	}
 }
 func clear() {
 	c := exec.Command("clear")
