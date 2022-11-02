@@ -6,12 +6,16 @@ import (
 	"os/exec"
 )
 
-var balance float32 = 0
+var balance float32 = 10000
 var anotherTransaction int
 
 func main() {
 	fmt.Printf("\nWelcome to GTBank ATM\n")
 	transaction()
+}
+
+func exit() {
+	fmt.Println("\nThank you for banking with us!\nHave a nice day")
 }
 func clear() {
 	c := exec.Command("clear")
@@ -32,7 +36,7 @@ func anotherTransact() {
 		clear()
 		transaction()
 	default:
-		fmt.Println("\nThank you for banking with us!\nHave a nice day")
+		exit()
 	}
 }
 func transaction() {
@@ -41,7 +45,8 @@ func transaction() {
 	fmt.Printf("\nPlease select an option\n\n")
 	fmt.Printf("1. Withdraw\n")
 	fmt.Printf("2. Deposit\n")
-	fmt.Printf("3. Balance\n\n")
+	fmt.Printf("3. Balance\n")
+	fmt.Printf("4. Exit\n\n")
 
 	_, err := fmt.Scan(&userChoice)
 	if err != nil {
@@ -63,7 +68,7 @@ func transaction() {
 			anotherTransact()
 		} else {
 			balance -= amountToWithdraw
-			fmt.Printf("Withdrawal Successful\nYou have withdrawn #%.2f and your available balance is #%.2f",
+			fmt.Printf("Withdrawal Successful\nYou have withdrawn %.2f NGN and your available balance is %.2f NGN",
 				amountToWithdraw, balance)
 			anotherTransact()
 		}
@@ -77,12 +82,15 @@ func transaction() {
 
 		balance += amountToDeposit
 
-		fmt.Printf("Deposit successful!\nYour available balance is: #%.2f", balance)
+		fmt.Printf("Deposit successful!\nYour available balance is: %.2f NGN", balance)
 
 		anotherTransact()
 
 	case 3: //Check Balance
-		fmt.Printf("\nYour available balance is: #%.2f", balance)
+		fmt.Printf("\nYour available balance is: %.2f NGN", balance)
 		anotherTransact()
+
+	case 4: //Exit
+		exit()
 	}
 }
